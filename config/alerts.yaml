@@ -1,0 +1,43 @@
+# Smart Alert Engine - Konfigurácia alertov
+# Každý alert má názov, coin a zoznam podmienok (všetky musia byť splnené naraz)
+
+telegram:
+  bot_token: "YOUR_BOT_TOKEN"
+  chat_id: "YOUR_CHAT_ID"
+
+# Interval kontroly v sekundách
+check_interval: 60
+
+alerts:
+  - name: "BTC Pump s objemom"
+    coin: "BTCUSDT"
+    conditions:
+      - type: price_change
+        period_minutes: 15
+        threshold_pct: 3.0          # +3% za 15 minút
+      - type: volume_spike
+        multiplier: 4.0             # objem 4x vyšší ako priemer
+        avg_period_hours: 24
+      - type: rsi
+        period: 14
+        above: 70                   # RSI nad 70
+
+  - name: "ETH Dump alert"
+    coin: "ETHUSDT"
+    conditions:
+      - type: price_change
+        period_minutes: 10
+        threshold_pct: -2.5         # -2.5% za 10 minút (záporné = pokles)
+      - type: volume_spike
+        multiplier: 3.0
+        avg_period_hours: 24
+
+  - name: "SOL Breakout"
+    coin: "SOLUSDT"
+    conditions:
+      - type: price_change
+        period_minutes: 30
+        threshold_pct: 5.0
+      - type: rsi
+        period: 14
+        above: 65
