@@ -2,8 +2,8 @@
 # Každý alert má názov, coin a zoznam podmienok (všetky musia byť splnené naraz)
 
 telegram:
-  bot_token: "YOUR_BOT_TOKEN"
-  chat_id: "YOUR_CHAT_ID"
+  bot_token: ${BOT_TOKEN}
+  chat_id: ${CHAT_ID}
 
 # Interval kontroly v sekundách
 check_interval: 60

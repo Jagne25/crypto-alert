@@ -4,10 +4,13 @@ Spustiť: python main.py
 """
 import time
 import logging
+import os
 import yaml
-from pathlib import Path
+from dotenv import load_dotenv
 from src.evaluator import evaluate_alert
 from src.notifier import send_telegram, format_alert_message
+
+load_dotenv()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -22,7 +25,8 @@ logger = logging.getLogger(__name__)
 
 def load_config(path: str = "config/alerts.yaml") -> dict:
     with open(path, "r") as f:
-        return yaml.safe_load(f)
+        content = os.path.expandvars(f.read())
+    return yaml.safe_load(content)
 
 
 def run_once(config: dict, already_fired: set) -> set:
